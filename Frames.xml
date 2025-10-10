@@ -79,32 +79,7 @@
 					<Color r="0.45" g="0.45" b="0.45"/>
 				</PushedTexture>
 				<HighlightTexture file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight" alphaMode="ADD"/>
-				<!-- animations to slide out (down) and slide in (up) from underneath the default tracking button -->
-				<Animations>
-					<AnimationGroup parentKey="SlideOut">
-						<Translation duration="0.15" order="1" offsetX="0" offsetY="-32"/>
-						<Scripts>
-							<OnPlay>
-								BattlePetDailyTamer:AnchorTrackingButton("TOP")
-							</OnPlay>
-							<OnFinished>
-								BattlePetDailyTamer:AnchorTrackingButton("BOTTOM")
-							</OnFinished>
-						</Scripts>
-					</AnimationGroup>
-					<AnimationGroup parentKey="SlideIn">
-						<Translation duration="0.15" order="1" offsetX="0" offsetY="32"/>
-						<Scripts>
-							<OnPlay>
-								BattlePetDailyTamer:AnchorTrackingButton("BOTTOM")
-							</OnPlay>
-							<OnFinished>
-								BattlePetDailyTamer:AnchorTrackingButton("TOP")
-								self:GetParent():Hide()
-							</OnFinished>
-						</Scripts>
-					</AnimationGroup>
-				</Animations>
+				
 				<Scripts>
 					<OnClick>
 						self:OnClick(button)

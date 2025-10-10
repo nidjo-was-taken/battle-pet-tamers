@@ -257,7 +257,7 @@ In `Options.lua`:
 
 ---
 
-This documentation reflects the stable, pre-refactor code layout. Refer to:
+Refer to:
 - `Main.lua` for initialization and saved variables
 - `Frames.xml` for frame definitions, templates, and animations
 - `Map.lua` for data provider and pin lifecycle

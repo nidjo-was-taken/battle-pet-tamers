@@ -39,17 +39,10 @@ function tamer:SetupTrackingButton()
 	-- initially position the button underneath the default's
 	tamer:AnchorTrackingButton("TOP")
 
-	if defaultTrackingButton then
-		-- when we mouseover the default tracking button slide our tracking button out
-		defaultTrackingButton:HookScript("OnEnter", tamer.ShowTrackingButton)
-		-- when the default tracking button hides, hide ours too
-		defaultTrackingButton:HookScript("OnHide", function() trackingButton:Hide() end)
-		-- when default tracking button clicked, hide menu if it's up
-		defaultTrackingButton:HookScript("OnClick", function() menuFrame:Hide() end)
-	else
-		-- Fallback (MoP Classic): keep our button always visible, anchored to map corner
-		trackingButton:Show()
-		-- force a stable anchor in fallback (top-right of map)
+	-- Always visible button (no hover-based show/hide)
+	trackingButton:Show()
+	if not defaultTrackingButton then
+		-- Stable anchor in fallback (top-right of map)
 		trackingButton:ClearAllPoints()
 		trackingButton:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", -40, -36)
 	end
@@ -70,39 +63,19 @@ function tamer:AnchorTrackingButton(relativePoint)
 end
 
 function tamer:ShowTrackingButton()
-    if not trackingButton:IsVisible() then
-        trackingButton:Show()
-        local base = (defaultTrackingButton and defaultTrackingButton:GetFrameLevel()) or WorldMapFrame:GetFrameLevel()
-        trackingButton:SetFrameLevel(base-1)
-        if trackingButton.SlideOut then
-            trackingButton.SlideOut:Play()
-        end
-    end
+    -- Always visible; ensure shown without animations
+    trackingButton:Show()
 end
 
 -- call this to slide in/hide the tracking button unless it needs to be immediately hidden
 function tamer:HideTrackingButton()
-    menuFrame:Hide()
-    local defaultVisible = defaultTrackingButton and defaultTrackingButton:IsVisible()
-    if (trackingButton.SlideOut and trackingButton.SlideOut:IsPlaying()) or defaultVisible==false then
-        trackingButton:Hide() -- if button is still sliding out, hide it right away; don't need to animate
-    else
-        if trackingButton.SlideIn then
-            trackingButton.SlideIn:Play() -- an actual hide happens in the OnFinished of this animation
-        else
-            trackingButton:Hide()
-        end
-    end
+    -- Always visible; do not hide button
+    -- Still hide the menu if requested elsewhere
+    -- menuFrame:Hide() is called by explicit handlers when needed
 end
 
 function trackingButton:OnUpdate(elapsed)
-    -- In fallback mode (no default button), do not auto-hide on mouse movement
-    if not defaultTrackingButton then return end
-    local overDefault = MouseIsOver(defaultTrackingButton)
-    local overFrame = MouseIsOver(WorldMapFrame)
-    if not MouseIsOver(trackingButton) and not overDefault and not overFrame and not menuFrame:IsVisible() then
-        tamer:HideTrackingButton()
-    end
+    -- No auto-hide behavior; keep button visible
 end
 
 -- clicking the tracking button will toggle the menu
