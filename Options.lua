@@ -1,9 +1,9 @@
 --[[
 	Options.lua handles the tracking button on the world map and its attached menu.
 
-	To avoid taint with default dropdowns and other addons messing with them, this
-	addon adds its own tracking button that slides out from the world map's when the
-	user mouseovers the world map tracking button.
+	To avoid taint with default dropdowns and other addons, the addon adds its own
+	tracking button on the World Map. The button is always visible and no longer
+	uses hover-based slide animations or auto-hide behavior.
 ]]
 
 local tamer = BattlePetDailyTamer
@@ -13,7 +13,7 @@ local menuFrame = tamer.MenuFrame
 local defaultTrackingButton -- this gets found after WorldMapFrame loads
 local fallbackAnchor -- fallback anchor when defaultTrackingButton is missing
 
--- call when WorldMapFrame is loaded, attach the slide-out tracking button to the world map
+-- call when WorldMapFrame is loaded; attach and position the always-visible tracking button on the world map
 function tamer:SetupTrackingButton()
 	-- default tracking button is anonymous, so we need to go through children of WorldFrame to find it
 	for _,child in pairs({WorldMapFrame:GetChildren()}) do

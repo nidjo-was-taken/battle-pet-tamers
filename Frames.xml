@@ -5,9 +5,9 @@
 
 		It has four child frames:
 
-			Frame       MapTooltip      the visible tooltip when you mouesover a paw on the world map
+			Frame       MapTooltip      the visible tooltip when you mouseover a paw on the world map
 			GameTooltip ScanTooltip     used for lifting npc and quest names off GameTooltips
-			Button      TrackingButton  the button that slides out from the world map's tracking button to open options
+			Button      TrackingButton  the always-visible button on the world map to open options
 			Frame       MenuFrame       the menu that opens when the above TrackingButton is clicked
 
 		The parent frame should never be hidden since it occasionally runs an OnUpdate.
@@ -42,8 +42,8 @@
 			</Frame>
 			<!-- this tooltip is never shown, it's used for creating tooltips of NPCs and quests to get their localized names -->
 			<GameTooltip parentKey="ScanTooltip" name="BattlePetDailyTamerScanTooltip" inherits="GameTooltipTemplate"/>
-			<!-- this is the button that slides out from the world frame tracking button, to toggle options;
-				it has no parent initially. when WorldMapFrame loads it's attached to it -->
+			<!-- this is the always-visible options button on the world map; it has no parent initially.
+				when WorldMapFrame loads it's attached to it -->
 			<Button parentKey="TrackingButton" flattenRenderLayers="true">
 				<Size x="32" y="32"/>
 				<Layers>
