@@ -27,7 +27,7 @@ Sections:
   - `tamer:PLAYER_LOGIN()` initializes `BattlePetDailyTamerSettings` and registers the Map Data Provider and the tracking button if `Blizzard_WorldMap` is loaded. Otherwise it waits for `ADDON_LOADED` to add them.
 - The Map Data Provider (`BattlePetDailyTamerDataProviderMixin`) in `Map.lua` owns the lifecycle for paw pins: on map change/refresh it clears pins and repopulates according to data plus settings.
 - Paws are clickable map pins (`BattlePetDailyTamerPinTemplate`), with tooltip support handled in `Tooltip.lua`. A custom tooltip frame (`MapTooltip`) floats beside the mouse cursor while hovering over paw pins.
-- A slide-out custom tracking button and menu are defined in `Frames.xml` and implemented in `Options.lua`.
+- A custom tracking button and menu are defined in `Frames.xml` and implemented in `Options.lua`.
 
 Mermaid flow of the high-level lifecycle:
 
@@ -41,7 +41,7 @@ flowchart TD
     F --> G[Acquire pins per daily data + settings]
     G --> H[Start tooltip mouseover watch]
     H --> I[User hovers paw -> Tooltip content update]
-    C --> J[TrackingButton hover/click] --> K[MenuFrame options]
+    C --> J[TrackingButton click] --> K[MenuFrame options]
 ```
 
 ## UI Frames and Templates
@@ -57,13 +57,13 @@ Defined in `Frames.xml`:
   - Children:
     - `MapTooltip`: custom tooltip attached to the world map hover loop.
     - `ScanTooltip`: `GameTooltip` used for programmatic tooltip scans to retrieve localized NPC and quest names.
-    - `TrackingButton`: slide-out button cloning the map’s tracking UX pattern.
+    - `TrackingButton`: always-visible button to open the addon menu.
     - `MenuFrame`: world map overlay menu for toggling categories and settings.
 
 - `BattlePetDailyTamerPinTemplate`: the map pin template used by the data provider.
 - `BattlePetDailyTamerMenuItemTemplate`: used to build the menu item list.
 
-The tracking button defines `SlideOut` and `SlideIn` animation groups that call `BattlePetDailyTamer:AnchorTrackingButton("TOP"|"BOTTOM")` to maintain coherent layout during animation.
+The tracking button no longer uses slide animations and remains visible at all times.
 
 ## Data Model
 
@@ -165,15 +165,15 @@ In `Tooltip.lua`:
 In `Options.lua`:
 
 - `tamer:SetupTrackingButton()`:
-  - Finds the (anonymous) Blizzard default tracking button by searching `WorldMapFrame` children for a known texture.
-  - If found, hooks its `OnEnter` (to slide out the custom `TrackingButton`), `OnHide` (to hide ours), and `OnClick` (hides our menu).
-  - If not found (common in MoP Classic), uses a fallback anchor (top-right of the map) and keeps our button visible.
+  - Locates the Blizzard default tracking button if present (for anchoring only).
+  - Parents our `TrackingButton` and `MenuFrame` to `WorldMapFrame` and shows the button unconditionally.
+  - If the default button is missing (e.g., MoP Classic), uses a stable top-right fallback anchor.
 
 - `tamer:AnchorTrackingButton(relativePoint)`:
-  - Anchors our button relative to the default tracking button (when present) or to a fallback.
+  - Positions our button relative to the default tracking button when present, or to the fallback anchor.
 
-- `tamer:ShowTrackingButton()` / `tamer:HideTrackingButton()`:
-  - Controls the slide-in/out animations and immediate-hide logic on edge cases.
+- Visibility behavior:
+  - The button is always visible. Hover-based `OnEnter`/auto-hide logic and slide animations were removed.
 
 - Menu building and updates:
   - `tamer:SetupMenu()` creates `MenuFrame.Buttons` using `BattlePetDailyTamerMenuItemTemplate`.

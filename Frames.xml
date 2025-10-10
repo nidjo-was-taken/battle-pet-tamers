@@ -44,7 +44,7 @@
 			<GameTooltip parentKey="ScanTooltip" name="BattlePetDailyTamerScanTooltip" inherits="GameTooltipTemplate"/>
 			<!-- this is the button that slides out from the world frame tracking button, to toggle options;
 				it has no parent initially. when WorldMapFrame loads it's attached to it -->
-			<Button parentKey="TrackingButton" flattenRenderLayers="true" hidden="true">
+			<Button parentKey="TrackingButton" flattenRenderLayers="true">
 				<Size x="32" y="32"/>
 				<Layers>
 					<Layer level="BACKGROUND">
