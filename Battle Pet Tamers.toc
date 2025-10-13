@@ -3,7 +3,7 @@
 ## Notes: Displays an icon on the world map indicating pet tamers available for battle.
 ## Version: 1.0.0
 
-## SavedVariables: BattlePetTamers
+## SavedVariables: BattlePetTamersSettings
 ## IconTexture: Interface\Icons\Tracking_WildPet
 
 ## Category-enUS: Pet Battles
