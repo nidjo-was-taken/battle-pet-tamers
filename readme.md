@@ -3,7 +3,7 @@
 This document explains the internal architecture and flow of the addon as currently rolled back to the stable, pre-refactor state. It synthesizes the developer-facing comments embedded across the codebase.
 
 - Repository path: `World of Warcraft/_classic_/Interface/AddOns/Battle Pet Tamers/`
-- SavedVariables: `BattlePetTamers`
+- SavedVariables: `BattlePetTamersSettings`
 - Primary namespace frame: `BattlePetTamers` (defined in `Frames.xml`)
 - CVAR toggle: `showTamers` (global enable/disable of tamers display)
 
@@ -222,18 +222,25 @@ In `Options.lua`:
 
 ## Extending Data and Features
 
+- **Enabling future content (Patch 5.2+)**:
+  - The addon includes commented-out data for future MoP Classic phases:
+    - **Patch 5.2**: Beasts of Fable (Legendary dailies) - marked with `-- 5.2` prefix
+    - **Patch 5.4**: Timeless Isle (Celestial Tournament) - marked with `-- 5.4` prefix
+  - To enable this content when it becomes available, simply uncomment the corresponding lines in `Data.lua`.
+  - You may also need to uncomment the "Legendary" category in `tamer.pawInfo` (currently marked `-- 5.2`).
+
 - Adding a new daily:
   - Update `tamer.dailyInfo` with a new questID entry:
     - Include `npcID`, `instanceID`, `world y/x`, `zoneMapID`+map coords as fallback, `daily type`, `level`, `speciesIDs`.
   - Add the questID to `tamer.questIDsByParentMapID[parentMapID]`.
   - Ensure `parentMapIDs[parentMapID]` is set if a new continent/map group is introduced.
-  - If it’s a world quest (type 4), ensure its behavior is correct on Azeroth and zone-level maps.
+  - If it's a world quest (type 4), ensure its behavior is correct on Azeroth and zone-level maps.
 
 - Adding a new category:
   - Update `tamer.pawInfo` to add the new type entry (order-sensitive).
   - Ensure all `dailyInfo` rows use the correct `[10]` type value.
   - Add a user-facing string/icon and color tuple for the new type.
-
+  
 - Icons and assets:
   - Map pin texture paths are set in pin acquisition (`self.Texture:SetTexture(pawInfo[4])`), and the default paw image path is in `Frames.xml` for the template.
 
@@ -254,6 +261,13 @@ In `Options.lua`:
 - Button missing in MoP Classic:
   - The fallback anchor places the button at map top-right. Adjust offsets in `Options.lua` `AnchorTrackingButton()` if needed.
   - The button always shows in fallback mode and does not auto-hide based on default button hover (by design).
+
+---
+
+## Credits
+
+- **Original Author**: [Gello3](https://www.curseforge.com/members/gello3/projects) - Creator of the original Battle Pet Daily Tamer addon
+- **MoP Classic Port**: Nidjo - Adapted and maintained for Mists of Pandaria Classic
 
 ---
 

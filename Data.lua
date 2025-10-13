@@ -31,11 +31,11 @@ local tamer = BattlePetTamers
 tamer.pawInfo = {
 	{"Reward Dailies","TrackSatchels",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.5,1.0,0.25},
 	{"Normal Dailies","TrackNonSatchels",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.5,0.85,1.0},
-	{"Legendary","TrackFables",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",1.0,0.5,0},
+	-- 5.2 {"Legendary","TrackFables",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",1.0,0.5,0},
 	{"World Quests","TrackWorldQuests",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.5,1.0,0.25},
-	-- {"Pet Dungeons","TrackPetDungeons",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",1,0.5,1}, -- disabled for MoP Classic
+	-- RETAIL {"Pet Dungeons","TrackPetDungeons",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",1,0.5,1}, -- disabled for MoP Classic
 	{"Inactive Dailies","TrackCompleted",false,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.75,0.75,0.75},
-	{"On Azeroth Map","OnAzerothMap",false,"Interface\\Minimap\\Tracking\\Innkeeper",1.0,1.0,1.0},
+	-- DISABLED {"On Azeroth Map","OnAzerothMap",false,"Interface\\Minimap\\Tracking\\Innkeeper",1.0,1.0,1.0}, -- disabled
 	{"Larger Paws","LargerPaws",false,"Interface\\AddOns\\Battle Pet Tamers\\paw",1.0,0.82,0},
 	--{"On Flight Maps Too","TaxiPaws",false,"Interface\\TaxiFrame\\UI-Taxi-Icon-White",1.0,1.0,1.0},
 	--{"Stable Masters","StableMasters",false,"Interface\\Minimap\\Tracking\\Stablemaster",1.0,1.0,1.0},
@@ -74,8 +74,8 @@ tamer.dailyInfo = {
 	-- Kalimdor
 	[31818] = {66126,nil,12,1,789.60822,-4283.7124,1,0.439,0.289,2,2,889,890}, -- Zunta (Durotar)
 	[31819] = {66135,nil,12,1,-223.97717,-3164.97534,10,0.586,0.531,2,3,891,893,892}, -- Dagra the Fierce (Northern Barrens)
-	-- [45083] = {115286,nil,12,1,438.3999,-3451.4001,10,0.636,0.358,1,25,1983,1981,1982}, -- Crysa (Northern Barrens)
-	-- [45539] = {nil,nil,12,1,-798.90002,-2036.5,10,0.39,0.681,5,25,1996}, -- Pet Battle Challenge: Wailing Caverns (Northern Barrens)
+	-- RETAIL [45083] = {115286,nil,12,1,438.3999,-3451.4001,10,0.636,0.358,1,25,1983,1981,1982}, -- Crysa (Northern Barrens)
+	-- RETAIL [45539] = {nil,nil,12,1,-798.90002,-2036.5,10,0.39,0.681,5,25,1996}, -- Pet Battle Challenge: Wailing Caverns (Northern Barrens)
 	[31854] = {66136,nil,12,1,3539.01025,535.13318,63,0.202,0.295,2,5,894,896,895}, -- Analynn (Ashenvale)
 	[31906] = {66452,nil,12,1,-4931.73291,-1836.93311,64,0.319,0.329,2,15,915,917,916}, -- Kela Grimtotem (Thousand Needles)
 	[31862] = {66137,nil,12,1,587.8999,379.7832,65,0.597,0.716,2,7,897,899,898}, -- Zonya the Sadist (Stonetalon Mountains)
@@ -92,7 +92,7 @@ tamer.dailyInfo = {
 	-- Eastern Kingdom
 	[31911] = {66512,nil,13,0,2295.9165,-4988.4375,23,0.67,0.524,2,14,935,936,934}, -- Deiza Plaguehorn (Eastern Plaguelands)
 	[31910] = {66478,nil,13,0,65.26672,-4000.5,26,0.63,0.546,2,13,932,931,933}, -- David Kosse (The Hinterlands)
-	-- [47895] = {124617,nil,13,0,-5144.8003,825.6,27,0.268,0.369,1,25,2068,2067,2066}, -- Environeer Bert (Dun Morogh)
+	-- RETAIL [47895] = {124617,nil,13,0,-5144.8003,825.6,27,0.268,0.369,1,25,2068,2067,2066}, -- Environeer Bert (Dun Morogh)
 	[31912] = {66515,nil,13,0,-6512.0376,-1110.54773,32,0.353,0.277,2,15,939,937,938}, -- Kortas Darkhammer (Searing Gorge)
 	[31914] = {66520,nil,13,0,-7982.91602,-1268.3645,36,0.255,0.475,2,17,946,945,944}, -- Durin Darkhammer (Burning Steppes)
 	[31693] = {64330,nil,13,0,-9876.88867,88.07922,37,0.417,0.837,2,2,873,872}, -- Julia Stevens (Elwynn Forest)
@@ -102,12 +102,12 @@ tamer.dailyInfo = {
 	[31852] = {63194,nil,13,0,-12120.93262,-142.25012,50,0.46,0.404,2,9,885,884,883}, -- Steven Lisbane (Northern Stranglethorn)
 	[31913] = {66518,nil,13,0,-10229.67676,-4007.6499,51,0.768,0.415,2,16,941,943,942}, -- Everessa (Swamp of Sorrows)
 	[31780] = {65648,nil,13,0,-9831.66699,885.1665,52,0.609,0.185,2,3,875,876,874}, -- Old MacDonald (Westfall)
-	-- [46292] = {nil,nil,13,0,-11059.5,1562.3,52,0.416,0.711,5,25,2023}, -- Pet Battle Challenge: Deadmines (Westfall)
+	-- RETAIL [46292] = {nil,nil,13,0,-11059.5,1562.3,52,0.416,0.711,5,25,2023}, -- Pet Battle Challenge: Deadmines (Westfall)
 	[31851] = {65656,nil,13,0,-14448.00391,76.22937,210,0.515,0.734,2,11,887,886,888}, -- Bill Buckler (The Cape of Stranglethorn)
 	[31974] = {66822,nil,13,0,-4152.5332,-5420.7915,241,0.566,0.568,2,25,987,986,988}, -- Goz Banefury (Twilight Highlands)
-	-- [54186] = {nil,nil,13,0,-5134.1,893.2,27,0.2551,0.3648,5,25,2488}, -- Pet Battle Challenge: Gnomeregan (Dun Morogh)
-	-- [56492] = {nil,nil,13,0,3168.5703,-4026.6235,23,0.431,0.199,5,25,2592}, -- Pet Battle Challenge: Stratholme (Eastern Plaguelands)
-	-- [58458] = {nil,nil,13,0,-7323.8374,-1081.6106,32,0.340,0.823,5,25,2814}, -- Pet Battle Challenge: Blackrock Depths (Searing Gorge)
+	-- RETAIL [54186] = {nil,nil,13,0,-5134.1,893.2,27,0.2551,0.3648,5,25,2488}, -- Pet Battle Challenge: Gnomeregan (Dun Morogh)
+	-- RETAIL [56492] = {nil,nil,13,0,3168.5703,-4026.6235,23,0.431,0.199,5,25,2592}, -- Pet Battle Challenge: Stratholme (Eastern Plaguelands)
+	-- RETAIL [58458] = {nil,nil,13,0,-7323.8374,-1081.6106,32,0.340,0.823,5,25,2814}, -- Pet Battle Challenge: Blackrock Depths (Searing Gorge)
 
 	-- Outland
 	[31922] = {66550,nil,1467,530,-216.5188,2218.7561,100,0.643,0.493,2,20,952,951,950}, -- Nicki Tinytech (Hellfire Peninsula)
@@ -133,33 +133,34 @@ tamer.dailyInfo = {
 	[31956] = {66738,nil,424,870,2547.48315,2599.09961,379,0.358,0.736,1,25,1001,1002,1003}, -- Courageous Yon (Kun-Lai Summit)
 	[31991] = {66918,nil,424,870,2559.5083,4994.18506,388,0.363,0.522,1,25,1006,1005,1004}, -- Seeker Zusshi (Townlong Steppes)
 	[32434] = {68463,"Pandarian Spirits",424,870,2946.25415,3799.48535,388,0.571,0.421,1,25,1130,1131,1139}, -- Burning Pandaren Spirit (Townlong Steppes)
-	-- [31958] = {66741,nil,424,870,697.29309,1689.17773,390,0.313,0.741,1,25,1012,1011,1010}, -- Aki the Chosen (Vale of Eternal Blossoms) (Retail)
-	[31958] = {66741,nil,424,870,1262.6239,771.1078,390,0.675,0.406,1,25,1012,1011,1010}, -- Aki the Chosen (Vale of Eternal Blossoms) (Classic - Phase 1)
+	-- RETAIL [31958] = {66741,nil,424,870,697.29309,1689.17773,390,0.313,0.741,1,25,1012,1011,1010}, -- Aki the Chosen (Vale of Eternal Blossoms)
+	[31958] = {66741,nil,424,870,1262.6239,771.1078,390,0.675,0.406,1,25,1012,1011,1010}, -- Aki the Chosen (Vale of Eternal Blossoms) (5.0 > 5.3)
 	[32441] = {68465,"Pandarian Spirits",424,870,1704.91687,776.31628,390,0.673,0.144,1,25,1137,1141,1134}, -- Thundering Pandaren Spirit (Vale of Eternal Blossoms)
 	[31954] = {66733,nil,424,870,-1544.79102,32.2915,418,0.622,0.459,1,25,1000,999,998}, -- Mo'ruk (Krasarang Wilds)
 	[31957] = {66739,nil,424,870,74.81665,3190.58521,422,0.551,0.376,1,25,1009,1007,1008}, -- Wastewalker Shu (Dread Wastes)
 	[32439] = {68462,"Pandarian Spirits",424,870,-1705.99023,2869.46021,422,0.611,0.875,1,25,1132,1138,1133}, -- Flowing Pandaren Spirit (Dread Wastes)
-    -- [63435] = {176655,nil,424,870,3476.2686,435.4297,379,0.704,0.513,1,25,3089,3090,3091}, -- Anthea (Kun-Lai Summit)
+    -- RETAIL [63435] = {176655,nil,424,870,3476.2686,435.4297,379,0.704,0.513,1,25,3089,3090,3091}, -- Anthea (Kun-Lai Summit)
 
 	-- Pandaria: Beasts of Fable
-	["Alliance:32604"] = {64572,"Beasts of Fable Book I",424,870,935.61896,287.66138,390,0.866,0.600,1}, -- Sara Finkleswitch (Vale of Eternal Blossoms)
-	["Alliance:32868"] = {64572,"Beasts of Fable Book II",424,870,935.61896,287.66138,390,0.866,0.600,1}, -- Sara Finkleswitch (Vale of Eternal Blossoms)
-	["Alliance:32869"] = {64572,"Beasts of Fable Book III",424,870,935.61896,287.66138,390,0.866,0.600,1}, -- Sara Finkleswitch (Vale of Eternal Blossoms)
-	["Horde:32604"] = {64582,"Beasts of Fable Book I",424,870,1547.01733,944.17493,390,0.607,0.238,1}, -- Gentle San (Vale of Eternal Blossoms)
-	["Horde:32868"] = {64582,"Beasts of Fable Book II",424,870,1547.01733,944.17493,390,0.607,0.238,1}, -- Gentle San (Vale of Eternal Blossoms)
-	["Horde:32869"] = {64582,"Beasts of Fable Book III",424,870,1547.01733,944.17493,390,0.607,0.238,1}, -- Gentle San (Vale of Eternal Blossoms)
-	["32604:1"] = {68555,"Beasts of Fable Book I",424,870,348.97412,-1929.52612,371,0.484,0.71,3,25,1129}, -- Ka'wi the Gorger (The Jade Forest)
-	["32604:2"] = {68563,"Beasts of Fable Book I",424,870,3274.94775,2637.15039,379,0.352,0.562,3,25,1192}, -- Kafi (Kun-Lai Summit)
-	["32604:3"] = {68564,"Beasts of Fable Book I",424,870,2084.66479,592.42773,379,0.679,0.847,3,25,1193}, -- Dos-Ryga (Kun-Lai Summit)
-	["32604:4"] = {68565,"Beasts of Fable Book I",424,870,2296.97583,-2531.62939,371,0.57,0.291,3,25,1194}, -- Nitun (The Jade Forest)
-	["32868:1"] = {68560,"Beasts of Fable Book II",424,870,-959.08789,1686.4165,376,0.253,0.785,3,25,1189}, -- Greyhoof (Valley of the Four Winds)
-	["32868:2"] = {68561,"Beasts of Fable Book II",424,870,-46.65613,1088.71741,376,0.405,0.437,3,25,1190}, -- Lucky Yi (Valley of the Four Winds)
-	["32868:3"] = {68566,"Beasts of Fable Book II",424,870,-1277.22852,1248.79163,418,0.362,0.373,3,25,1195}, -- Skitterer Xi'a (Krasarang Wilds)
-	["32869:1"] = {68558,"Beasts of Fable Book III",424,870,-378.52185,4738.46094,422,0.262,0.503,3,25,1187}, -- Gorespine (Dread Wastes)
-	["32869:2"] = {68559,"Beasts of Fable Book III",424,870,751.22571,2202.00049,390,0.11,0.709,3,25,1188}, -- No-No (Vale of Eternal Blossoms)
-	["32869:3"] = {68562,"Beasts of Fable Book III",424,870,1503.73071,2929.30713,388,0.723,0.798,3,25,1191}, -- Ti'un the Wanderer (Townlong Steppes)
-	[33137] = {nil,nil,424,870,-720.93799,-4916.58984,554,0.347,0.596,1}, -- The Celestial Tournament (Timeless Isle)
-	[33222] = {73626,nil,424,870,-732.74603,-4913.56592,554,0.346,0.604,2,25,1339}, -- Little Tommy Newcomer (Timeless Isle)
+	-- 5.2 ["Alliance:32604"] = {64572,"Beasts of Fable Book I",424,870,935.61896,287.66138,390,0.866,0.600,1}, -- Sara Finkleswitch (Vale of Eternal Blossoms)
+	-- 5.2 ["Alliance:32868"] = {64572,"Beasts of Fable Book II",424,870,935.61896,287.66138,390,0.866,0.600,1}, -- Sara Finkleswitch (Vale of Eternal Blossoms)
+	-- 5.2 ["Alliance:32869"] = {64572,"Beasts of Fable Book III",424,870,935.61896,287.66138,390,0.866,0.600,1}, -- Sara Finkleswitch (Vale of Eternal Blossoms)
+	-- 5.2 ["Horde:32604"] = {64582,"Beasts of Fable Book I",424,870,1547.01733,944.17493,390,0.607,0.238,1}, -- Gentle San (Vale of Eternal Blossoms)
+	-- 5.2 ["Horde:32868"] = {64582,"Beasts of Fable Book II",424,870,1547.01733,944.17493,390,0.607,0.238,1}, -- Gentle San (Vale of Eternal Blossoms)
+	-- 5.2 ["Horde:32869"] = {64582,"Beasts of Fable Book III",424,870,1547.01733,944.17493,390,0.607,0.238,1}, -- Gentle San (Vale of Eternal Blossoms)
+	-- 5.2 ["32604:1"] = {68555,"Beasts of Fable Book I",424,870,348.97412,-1929.52612,371,0.484,0.71,3,25,1129}, -- Ka'wi the Gorger (The Jade Forest)
+	-- 5.2 ["32604:2"] = {68563,"Beasts of Fable Book I",424,870,3274.94775,2637.15039,379,0.352,0.562,3,25,1192}, -- Kafi (Kun-Lai Summit)
+	-- 5.2 ["32604:3"] = {68564,"Beasts of Fable Book I",424,870,2084.66479,592.42773,379,0.679,0.847,3,25,1193}, -- Dos-Ryga (Kun-Lai Summit)
+	-- 5.2 ["32604:4"] = {68565,"Beasts of Fable Book I",424,870,2296.97583,-2531.62939,371,0.57,0.291,3,25,1194}, -- Nitun (The Jade Forest)
+	-- 5.2 ["32868:1"] = {68560,"Beasts of Fable Book II",424,870,-959.08789,1686.4165,376,0.253,0.785,3,25,1189}, -- Greyhoof (Valley of the Four Winds)
+	-- 5.2 ["32868:2"] = {68561,"Beasts of Fable Book II",424,870,-46.65613,1088.71741,376,0.405,0.437,3,25,1190}, -- Lucky Yi (Valley of the Four Winds)
+	-- 5.2 ["32868:3"] = {68566,"Beasts of Fable Book II",424,870,-1277.22852,1248.79163,418,0.362,0.373,3,25,1195}, -- Skitterer Xi'a (Krasarang Wilds)
+	-- 5.2 ["32869:1"] = {68558,"Beasts of Fable Book III",424,870,-378.52185,4738.46094,422,0.262,0.503,3,25,1187}, -- Gorespine (Dread Wastes)
+	-- 5.2 ["32869:2"] = {68559,"Beasts of Fable Book III",424,870,751.22571,2202.00049,390,0.11,0.709,3,25,1188}, -- No-No (Vale of Eternal Blossoms)
+	-- 5.2 ["32869:3"] = {68562,"Beasts of Fable Book III",424,870,1503.73071,2929.30713,388,0.723,0.798,3,25,1191}, -- Ti'un the Wanderer (Townlong Steppes)
+
+	-- 5.4 [33137] = {nil,nil,424,870,-720.93799,-4916.58984,554,0.347,0.596,1}, -- The Celestial Tournament (Timeless Isle)
+	-- 5.4 [33222] = {73626,nil,424,870,-732.74603,-4913.56592,554,0.346,0.604,2,25,1339}, -- Little Tommy Newcomer (Timeless Isle)
 
 	--[[ END OF MOP
 
