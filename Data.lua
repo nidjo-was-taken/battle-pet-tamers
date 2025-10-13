@@ -139,7 +139,7 @@ tamer.dailyInfo = {
 	[31954] = {66733,nil,424,870,-1544.79102,32.2915,418,0.622,0.459,1,25,1000,999,998}, -- Mo'ruk (Krasarang Wilds)
 	[31957] = {66739,nil,424,870,74.81665,3190.58521,422,0.551,0.376,1,25,1009,1007,1008}, -- Wastewalker Shu (Dread Wastes)
 	[32439] = {68462,"Pandarian Spirits",424,870,-1705.99023,2869.46021,422,0.611,0.875,1,25,1132,1138,1133}, -- Flowing Pandaren Spirit (Dread Wastes)
-    [63435] = {176655,nil,424,870,3476.2686,435.4297,379,0.704,0.513,1,25,3089,3090,3091}, -- Anthea (Kun-Lai Summit)
+    -- [63435] = {176655,nil,424,870,3476.2686,435.4297,379,0.704,0.513,1,25,3089,3090,3091}, -- Anthea (Kun-Lai Summit)
 
 	-- Pandaria: Beasts of Fable
 	["Alliance:32604"] = {64572,"Beasts of Fable Book I",424,870,935.61896,287.66138,390,0.866,0.600,1}, -- Sara Finkleswitch (Vale of Eternal Blossoms)
