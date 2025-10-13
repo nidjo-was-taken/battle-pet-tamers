@@ -11,10 +11,10 @@
 	two paws overlap.
 
 	For debugging purposes, to see the questID on the tooltip:
-		BattlePetDailyTamer.ShowQuestIDsOnTooltips = true
+		BattlePetTamers.ShowQuestIDsOnTooltips = true
 ]]
 
-local tamer = BattlePetDailyTamer
+local tamer = BattlePetTamers
 local tooltip = tamer.MapTooltip -- the frame that will be shown
 
 local mouseTimer = 0 -- accumulated elapsed time in the WatchForMouseover OnUpdate
@@ -237,7 +237,7 @@ function tamer:AddQuestToTooltip(questID)
 		end
 
 		-- if setting to display inactive dailies is enabled, then grey out title of inactive dailies
-		if BattlePetDailyTamerSettings.TrackCompleted and not tamer:QuestNeedsShown(questID) then
+		if BattlePetTamersSettings.TrackCompleted and not tamer:QuestNeedsShown(questID) then
 			name = "\124cffd0d0d0" .. name .. " (" .. FACTION_INACTIVE .. ")"
 		else
 			name = "\124cffffd200" ..name -- standard gold text for active name
@@ -284,11 +284,11 @@ end
 -- takes an npcID and returns the name of the npc
 -- if the return is nil, the npcID is invalid or it's not been cached yet
 function tamer:GetNameFromNpcID(npcID)
-	local tooltip = BattlePetDailyTamerScanTooltip
+	local tooltip = BattlePetTamersScanTooltip
 	tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 	tooltip:SetHyperlink(format("unit:Creature-0-0-0-0-%d-0000000000", npcID))
 	if tooltip:NumLines() > 0 then
-		local name = BattlePetDailyTamerScanTooltipTextLeft1:GetText()
+		local name = BattlePetTamersScanTooltipTextLeft1:GetText()
 		tooltip:Hide()
 		return name
 	end
@@ -305,11 +305,11 @@ function tamer:GetNameFromQuestID(questID)
 		end
 	end
 	-- wasn't a world quest, try a tooltip scan
-	local tooltip = BattlePetDailyTamerScanTooltip
+	local tooltip = BattlePetTamersScanTooltip
 	tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 	tooltip:SetHyperlink(format("quest:%d", questID))
 	if tooltip:NumLines() > 0 then
-		local name = BattlePetDailyTamerScanTooltipTextLeft1:GetText()
+		local name = BattlePetTamersScanTooltipTextLeft1:GetText()
 		tooltip:Hide()
 		return name
 	end

@@ -2,7 +2,7 @@
 	Main.lua handles events and initialization
 ]]
 
-local tamer = BattlePetDailyTamer
+local tamer = BattlePetTamers
 
 -- event dispatcher
 function tamer:OnEvent(event, ...)
@@ -14,8 +14,8 @@ end
 -- initialization event
 function tamer:PLAYER_LOGIN()
 	-- make sure savedvar exists and load default values
-	BattlePetDailyTamerSettings = BattlePetDailyTamerSettings or {}
-	local settings = BattlePetDailyTamerSettings
+	BattlePetTamersSettings = BattlePetTamersSettings or {}
+	local settings = BattlePetTamersSettings
 	for _,pawInfo in ipairs(tamer.pawInfo) do
 		if settings[pawInfo[2]]==nil then -- setting doesn't exist
 			settings[pawInfo[2]] = pawInfo[3] -- give it a default value

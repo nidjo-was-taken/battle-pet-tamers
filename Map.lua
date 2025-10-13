@@ -3,11 +3,11 @@
 
 	It uess the new map data providers in the Battle for Azeroth client.
 
-	BattlePetDailyTamerPinTemplate is defined in Frames.xml
+	BattlePetTamersPinTemplate is defined in Frames.xml
 ]]
 
 
-local tamer = BattlePetDailyTamer
+local tamer = BattlePetTamers
 
 tamer.pawsOnMap = {} -- ordered list of all paws on the map
 tamer.incompleteObjectives = {} -- lookup table of questIDs with objectives that need done (questIDs as in "32869:1")
@@ -22,8 +22,8 @@ local PAW_LARGER_SCALE = 1.33
 
 --[[ data provider ]]
 
-BattlePetDailyTamerDataProviderMixin = CreateFromMixins(MapCanvasDataProviderMixin)
-tamer.dataProvider = BattlePetDailyTamerDataProviderMixin
+BattlePetTamersDataProviderMixin = CreateFromMixins(MapCanvasDataProviderMixin)
+tamer.dataProvider = BattlePetTamersDataProviderMixin
 
 -- this is called before the map is first shown and on every map change; its purpose is to
 -- show all paws on the map that need shown
@@ -50,7 +50,7 @@ function tamer.dataProvider:RefreshAllData()
 	currentMapID = mapID -- note for use outside this function
 
 	-- if TrackCompleted is enabled ("Inactive Dailies") then they show as grey paws on the map
-	local showInactive = BattlePetDailyTamerSettings.TrackCompleted
+	local showInactive = BattlePetTamersSettings.TrackCompleted
 	-- if the parentMapID ("continent") has quests, go through them and post pins
 	if parentMapID and tamer.parentMapIDs[parentMapID] then
 		local worldPos = CreateVector2D(0, 0) -- reusing vector to minimize garbage creation
@@ -59,7 +59,7 @@ function tamer.dataProvider:RefreshAllData()
 
 			-- info[10] is the reward type; if the reward type is known, and the settings for that
 			-- reward type are enabled, then this paw is okay to be shown
-			local isTracked = tamer.pawInfo[info[10]] and BattlePetDailyTamerSettings[tamer.pawInfo[info[10]][2]]
+			local isTracked = tamer.pawInfo[info[10]] and BattlePetTamersSettings[tamer.pawInfo[info[10]][2]]
 			-- if the type is not only tracked but quest has not been completed/is active,
 			-- paw should be definitely be shown
 			local showPaw = isTracked and tamer:QuestNeedsShown(questID)
@@ -90,8 +90,8 @@ function tamer.dataProvider:RefreshAllData()
 					-- only need to show paws that are within 0,0->1,1 mapPos
 					if x >= 0 and x <= 1 and y >=0 and y <= 1 then
 						local isInactive = (not showPaw) and showInactive
-						local paw = self:GetMap():AcquirePin("BattlePetDailyTamerPinTemplate", questID, x, y, isInactive)
-						local scale = BattlePetDailyTamerSettings.LargerPaws and PAW_LARGER_SCALE or 1
+						local paw = self:GetMap():AcquirePin("BattlePetTamersPinTemplate", questID, x, y, isInactive)
+						local scale = BattlePetTamersSettings.LargerPaws and PAW_LARGER_SCALE or 1
 						local pawSize = WorldMapFrame:IsMaximized() and PAW_SIZE_MAXIMIZED*scale or PAW_SIZE_NORMAL*scale
 						paw:SetSize(pawSize,pawSize)
 						tinsert(tamer.pawsOnMap, paw)
@@ -104,18 +104,18 @@ function tamer.dataProvider:RefreshAllData()
 	-- if we're on the azeroth world map, it requires special handling
 	-- only active quests are shown for all questIDs that have a parentMapID in azerothTransforms
 	-- (and while OnAzerothMap settings is enabled)
-	if mapID == 947 and BattlePetDailyTamerSettings.OnAzerothMap then
+	if mapID == 947 and BattlePetTamersSettings.OnAzerothMap then
 		local transforms = tamer.azerothTransforms
 		-- going through all quests in dailyInfo
 		for questID,info in pairs(tamer.dailyInfo) do
 			if transforms[info[3]] then
-				local isTracked = tamer.pawInfo[info[10]] and BattlePetDailyTamerSettings[tamer.pawInfo[info[10]][2]]
+				local isTracked = tamer.pawInfo[info[10]] and BattlePetTamersSettings[tamer.pawInfo[info[10]][2]]
 				local showPaw = isTracked and tamer:QuestNeedsShown(questID)
 				if showPaw then -- only showing active quests
 					local x, y = tamer:GetAzerothMapPos(info[5], info[6], transforms[info[3]])
 					if x >= 0 and x <= 1 and y >=0 and y <= 1 then
-						local paw = self:GetMap():AcquirePin("BattlePetDailyTamerPinTemplate", questID, x, y)
-						local scale = BattlePetDailyTamerSettings.LargerPaws and PAW_LARGER_SCALE or 1
+						local paw = self:GetMap():AcquirePin("BattlePetTamersPinTemplate", questID, x, y)
+						local scale = BattlePetTamersSettings.LargerPaws and PAW_LARGER_SCALE or 1
 						local pawSize = WorldMapFrame:IsMaximized() and PAW_SIZE_MAXIMIZED*scale or PAW_SIZE_NORMAL*scale
 						paw:SetSize(pawSize,pawSize)
 						tinsert(tamer.pawsOnMap, paw)
@@ -147,7 +147,7 @@ end
 
 -- wipes all pins off the map (called at the start of RefreshAllData)
 function tamer.dataProvider:RemoveAllData()
-	self:GetMap():RemoveAllPinsByTemplate("BattlePetDailyTamerPinTemplate")
+	self:GetMap():RemoveAllPinsByTemplate("BattlePetTamersPinTemplate")
 	wipe(tamer.pawsOnMap)
 end
 
@@ -165,8 +165,8 @@ end
 
 --[[ pins ]]
 
-BattlePetDailyTamerPinMixin = CreateFromMixins(MapCanvasPinMixin)
-tamer.pinProvider = BattlePetDailyTamerPinMixin
+BattlePetTamersPinMixin = CreateFromMixins(MapCanvasPinMixin)
+tamer.pinProvider = BattlePetTamersPinMixin
 
 function tamer.pinProvider:OnLoad()
 	self:UseFrameLevelType("PIN_FRAME_LEVEL_AREA_POI")

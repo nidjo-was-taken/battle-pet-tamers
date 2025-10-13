@@ -1,6 +1,6 @@
 <Ui>
 	<!--
-		BattlePetDailyTamer is the "parent" frame that serves as a namespace and event
+		BattlePetTamers is the "parent" frame that serves as a namespace and event
 		handler for the rest of the addon.
 
 		It has four child frames:
@@ -14,18 +14,18 @@
 		It should also not be parented to UIParent so the tooltip remains independent.
 		TrackingButton and MenuFrame both get reparented to WorldMapFrame.
 	-->
-	<Frame name="BattlePetDailyTamerBackdropTemplate" inherits="BackdropTemplate" virtual="true">
+	<Frame name="BattlePetTamersBackdropTemplate" inherits="BackdropTemplate" virtual="true">
 		<KeyValues>
-			<KeyValue key="backdropInfo" value="BATTLEPETDAILYTAMER_BACKDROP_STYLE" type="global"/>
-			<KeyValue key="backdropColor" value="BATTLEPETDAILYTAMER_BACKDROP_COLOR" type="global"/>
-			<KeyValue key="backdropBorderColor" value="BATTLEPETDAILYTAMER_BORDER_BACKGROUND_COLOR" type="global"/>
+			<KeyValue key="backdropInfo" value="BATTLEPETTAMERS_BACKDROP_STYLE" type="global"/>
+			<KeyValue key="backdropColor" value="BATTLEPETTAMERS_BACKDROP_COLOR" type="global"/>
+			<KeyValue key="backdropBorderColor" value="BATTLEPETTAMERS_BORDER_BACKGROUND_COLOR" type="global"/>
 		</KeyValues>
 	</Frame>
 
-	<Frame name="BattlePetDailyTamer">
+	<Frame name="BattlePetTamers">
 		<Frames>
 			<!-- this frame is a custom tooltip that shows during the mouseover of paws on the map. -->
-			<Frame parentKey="MapTooltip" frameStrata="TOOLTIP" clampedToScreen="true" inherits="BattlePetDailyTamerBackdropTemplate" hidden="true">
+			<Frame parentKey="MapTooltip" frameStrata="TOOLTIP" clampedToScreen="true" inherits="BattlePetTamersBackdropTemplate" hidden="true">
 				<Size x="50" y="50"/>
 				<Frames>
 					<!-- this is for tooltips to display a tamer's pets: the level and type icon of up to three pets -->
@@ -41,7 +41,7 @@
 				</Scripts>
 			</Frame>
 			<!-- this tooltip is never shown, it's used for creating tooltips of NPCs and quests to get their localized names -->
-			<GameTooltip parentKey="ScanTooltip" name="BattlePetDailyTamerScanTooltip" inherits="GameTooltipTemplate"/>
+			<GameTooltip parentKey="ScanTooltip" name="BattlePetTamersScanTooltip" inherits="GameTooltipTemplate"/>
 			<!-- this is the always-visible options button on the world map; it has no parent initially.
 				when WorldMapFrame loads it's attached to it -->
 			<Button parentKey="TrackingButton" flattenRenderLayers="true">
@@ -93,7 +93,7 @@
 				</Scripts>
 			</Button>
 			<!-- this is the menu that appears when the slide-out tracking button is clicked -->
-			<Frame parentKey="MenuFrame" frameStrata="FULLSCREEN_DIALOG" clampedToScreen="true" flattenRenderLayers="true" inherits="BattlePetDailyTamerBackdropTemplate" hidden="true">
+			<Frame parentKey="MenuFrame" frameStrata="FULLSCREEN_DIALOG" clampedToScreen="true" flattenRenderLayers="true" inherits="BattlePetTamersBackdropTemplate" hidden="true">
 				<Size x="200" y="128"/>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.TrackingButton" relativePoint="BOTTOMLEFT"/>
@@ -119,17 +119,17 @@
 	</Frame>
 
 	<!-- template for paw pin -->
-	<Frame name="BattlePetDailyTamerPinTemplate" mixin="BattlePetDailyTamerPinMixin" virtual="true">
+	<Frame name="BattlePetTamersPinTemplate" mixin="BattlePetTamersPinMixin" virtual="true">
 		<Size x="16" y="16"/>
 		<Layers>
 			<Layer level="ARTWORK">
-				<Texture parentKey="Texture" file="Interface\AddOns\Battle Pet Daily Tamer\Paw.tga"/>
+				<Texture parentKey="Texture" file="Interface\AddOns\Battle Pet Tamers\Paw.tga"/>
 			</Layer>
 		</Layers>
 	</Frame>
 
 	<!-- template for the menu buttons -->
-	<Button name="BattlePetDailyTamerMenuItemTemplate" virtual="true">
+	<Button name="BattlePetTamersMenuItemTemplate" virtual="true">
 		<Size x="180" y="16"/>
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -169,7 +169,7 @@
 				self.Highlight:Hide()
 			</OnLeave>
 			<OnClick>
-				BattlePetDailyTamer.MenuButtonOnClick(self)
+				BattlePetTamers.MenuButtonOnClick(self)
 			</OnClick>
 		</Scripts>
 	</Button>

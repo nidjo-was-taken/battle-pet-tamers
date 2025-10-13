@@ -1,10 +1,11 @@
 ## Interface: 50500, 50501
-## Title: Battle Pet Daily Tamer (Classic Fix)
-## Notes: This addon marks the world map with battle pet dailies you've not completed for the day
-## Author: Gello (port: Nidjo)
+## Title: Battle Pet Tamers (Classic)
+## Notes: Displays an icon on the world map indicating pet tamers available for battle.
 ## Version: 1.0.0
-## SavedVariables: BattlePetDailyTamerSettings
+
+## SavedVariables: BattlePetTamers
 ## IconTexture: Interface\Icons\Tracking_WildPet
+
 ## Category-enUS: Pet Battles
 ## Category-deDE: Haustierkämpfe
 ## Category-esES: Duelos de mascotas
@@ -16,6 +17,7 @@
 ## Category-ruRU: Битвы питомцев
 ## Category-zhCN: 宠物对战
 ## Category-zhTW: 寵物對戰
+
 Constants.lua
 Frames.xml
 Map.lua

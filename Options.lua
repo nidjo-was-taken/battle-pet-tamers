@@ -6,7 +6,7 @@
 	uses hover-based slide animations or auto-hide behavior.
 ]]
 
-local tamer = BattlePetDailyTamer
+local tamer = BattlePetTamers
 local trackingButton = tamer.TrackingButton
 local menuFrame = tamer.MenuFrame
 
@@ -115,11 +115,11 @@ function tamer:SetupMenu()
 	menuFrame.Buttons = {}
 	local maxWidth = 0
 	for i=0,#tamer.pawInfo do
-		menuFrame.Buttons[i] = CreateFrame("Button", nil, menuFrame, "BattlePetDailyTamerMenuItemTemplate")
+		menuFrame.Buttons[i] = CreateFrame("Button", nil, menuFrame, "BattlePetTamersMenuItemTemplate")
 		local button = menuFrame.Buttons[i]
 		button:SetID(i)
 		if i==0 then
-			button:SetText("Battle Pet Daily Tamer")
+			button:SetText("Battle Pet Tamers")
 			button:SetNormalFontObject("GameFontNormalSmallLeft")
 			button.Icon:Hide()
 		else
@@ -143,13 +143,13 @@ end
 
 -- this updates the check/unchecked/enabled status of each item on the menu
 function tamer:UpdateMenu()
-	local settings = BattlePetDailyTamerSettings
+	local settings = BattlePetTamersSettings
 	local enabled -- true if main cvar is enabled
 	for i=0,#menuFrame.Buttons do
 		local button = menuFrame.Buttons[i]
 		local checked -- whether individual option is enabled
 		if i==0 then
-			checked = GetCVarBool("showTamers") and true -- for "Battle Pet Daily Tamer" option, it's the showTamers cvar
+			checked = GetCVarBool("showTamers") and true -- for "Battle Pet Tamers" option, it's the showTamers cvar
 			enabled = checked and true -- if false all the rest will be disabled/greyed out
 		else -- this is a pawInfo setting, which can be disabled if enabled is false
 			checked = settings[tamer.pawInfo[i][2]]
@@ -176,7 +176,7 @@ function tamer:MenuButtonOnClick()
 	if id==0 then
 		SetCVar("showTamers",1-GetCVar("showTamers"))
 	else
-		local settings = BattlePetDailyTamerSettings
+		local settings = BattlePetTamersSettings
 		settings[tamer.pawInfo[id][2]] = not settings[tamer.pawInfo[id][2]]
 	end
 	tamer:UpdateMenu()

@@ -1,10 +1,10 @@
-# Battle Pet Daily Tamer — Developer Documentation
+# Battle Pet Tamers — Developer Documentation
 
 This document explains the internal architecture and flow of the addon as currently rolled back to the stable, pre-refactor state. It synthesizes the developer-facing comments embedded across the codebase.
 
-- Repository path: `World of Warcraft/_classic_/Interface/AddOns/Battle Pet Daily Tamer/`
-- SavedVariables: `BattlePetDailyTamerSettings`
-- Primary namespace frame: `BattlePetDailyTamer` (defined in `Frames.xml`)
+- Repository path: `World of Warcraft/_classic_/Interface/AddOns/Battle Pet Tamers/`
+- SavedVariables: `BattlePetTamers`
+- Primary namespace frame: `BattlePetTamers` (defined in `Frames.xml`)
 - CVAR toggle: `showTamers` (global enable/disable of tamers display)
 
 Sections:
@@ -22,11 +22,11 @@ Sections:
 
 ## Overview and Runtime Flow
 
-- The addon anchors itself via the root frame `BattlePetDailyTamer` declared in `Frames.xml`. This frame serves as the namespace and central event dispatcher.
+- The addon anchors itself via the root frame `BattlePetTamers` declared in `Frames.xml`. This frame serves as the namespace and central event dispatcher.
 - Initialization occurs in `Main.lua`:
-  - `tamer:PLAYER_LOGIN()` initializes `BattlePetDailyTamerSettings` and registers the Map Data Provider and the tracking button if `Blizzard_WorldMap` is loaded. Otherwise it waits for `ADDON_LOADED` to add them.
-- The Map Data Provider (`BattlePetDailyTamerDataProviderMixin`) in `Map.lua` owns the lifecycle for paw pins: on map change/refresh it clears pins and repopulates according to data plus settings.
-- Paws are clickable map pins (`BattlePetDailyTamerPinTemplate`), with tooltip support handled in `Tooltip.lua`. A custom tooltip frame (`MapTooltip`) floats beside the mouse cursor while hovering over paw pins.
+  - `tamer:PLAYER_LOGIN()` initializes `BattlePetTamersSettings` and registers the Map Data Provider and the tracking button if `Blizzard_WorldMap` is loaded. Otherwise it waits for `ADDON_LOADED` to add them.
+- The Map Data Provider (`BattlePetTamersDataProviderMixin`) in `Map.lua` owns the lifecycle for paw pins: on map change/refresh it clears pins and repopulates according to data plus settings.
+- Paws are clickable map pins (`BattlePetTamersPinTemplate`), with tooltip support handled in `Tooltip.lua`. A custom tooltip frame (`MapTooltip`) floats beside the mouse cursor while hovering over paw pins.
 - A custom tracking button and menu are defined in `Frames.xml` and implemented in `Options.lua`.
 
 Mermaid flow of the high-level lifecycle:
@@ -48,20 +48,20 @@ flowchart TD
 
 Defined in `Frames.xml`:
 
-- `BattlePetDailyTamerBackdropTemplate`: common backdrop template via `BackdropTemplate`. Uses constants from `Constants.lua`:
-  - `BATTLEPETDAILYTAMER_BACKDROP_STYLE`
-  - `BATTLEPETDAILYTAMER_BACKDROP_COLOR`
-  - `BATTLEPETDAILYTAMER_BORDER_BACKGROUND_COLOR`
+- `BattlePetTamersBackdropTemplate`: common backdrop template via `BackdropTemplate`. Uses constants from `Constants.lua`:
+  - `BATTLEPETTAMERS_BACKDROP_STYLE`
+  - `BATTLEPETTAMERS_BACKDROP_COLOR`
+  - `BATTLEPETTAMERS_BORDER_BACKGROUND_COLOR`
 
-- `BattlePetDailyTamer` (root frame/namespace):
+- `BattlePetTamers` (root frame/namespace):
   - Children:
     - `MapTooltip`: custom tooltip attached to the world map hover loop.
     - `ScanTooltip`: `GameTooltip` used for programmatic tooltip scans to retrieve localized NPC and quest names.
     - `TrackingButton`: always-visible button to open the addon menu.
     - `MenuFrame`: world map overlay menu for toggling categories and settings.
 
-- `BattlePetDailyTamerPinTemplate`: the map pin template used by the data provider.
-- `BattlePetDailyTamerMenuItemTemplate`: used to build the menu item list.
+- `BattlePetTamersPinTemplate`: the map pin template used by the data provider.
+- `BattlePetTamersMenuItemTemplate`: used to build the menu item list.
 
 The tracking button no longer uses slide animations and remains visible at all times.
 
@@ -97,7 +97,7 @@ Defined in `Data.lua` and used throughout:
 
 In `Map.lua`:
 
-- `BattlePetDailyTamerDataProviderMixin = CreateFromMixins(MapCanvasDataProviderMixin)`
+- `BattlePetTamersDataProviderMixin = CreateFromMixins(MapCanvasDataProviderMixin)`
 
 Important hooks:
 
@@ -107,22 +107,22 @@ Important hooks:
   - Determines `mapID` and `parentMapID`. For Pandaria maps and Azeroth, calls `tamer:UpdateIncompleteObjectives()`.
   - For `parentMapID`s that have quests:
     - Iterates `tamer.questIDsByParentMapID[parentMapID]`.
-    - Filters by settings: `BattlePetDailyTamerSettings[tamer.pawInfo[info[10]][2]]`.
+    - Filters by settings: `BattlePetTamersSettings[tamer.pawInfo[info[10]][2]]`.
     - Calls `tamer:QuestNeedsShown(questID)` to decide visibility.
     - Computes map position as follows:
       - Preferred: `C_Map.GetMapPosFromWorldPos(info[4], worldPos, mapID)`.
       - Fallback: convert from stored zone map coords to world, then back to current map.
       - Final fallback: if currently on the exact zone map, use the zone coords directly.
-    - Adds pin with `self:GetMap():AcquirePin("BattlePetDailyTamerPinTemplate", questID, x, y, isInactive)`.
-  - Special handling on Azeroth map (mapID 947): only active quests are shown when `BattlePetDailyTamerSettings.OnAzerothMap` is true. Coordinates derived via `tamer:GetAzerothMapPos()` with `azerothTransforms`.
+    - Adds pin with `self:GetMap():AcquirePin("BattlePetTamersPinTemplate", questID, x, y, isInactive)`.
+  - Special handling on Azeroth map (mapID 947): only active quests are shown when `BattlePetTamersSettings.OnAzerothMap` is true. Coordinates derived via `tamer:GetAzerothMapPos()` with `azerothTransforms`.
 
-- `RemoveAllData()` clears all `BattlePetDailyTamerPinTemplate` pins and resets `tamer.pawsOnMap`.
+- `RemoveAllData()` clears all `BattlePetTamersPinTemplate` pins and resets `tamer.pawsOnMap`.
 
 - `OnShow()` and `OnHide()` start/stop the tooltip mouseover watcher and clear `tamer.pawsOnMap`.
 
 Pin mixin:
 
-- `BattlePetDailyTamerPinMixin`:
+- `BattlePetTamersPinMixin`:
   - `OnAcquired(questID, x, y, isInactive)`: Sets position, selects correct paw icon and vertex color based on `tamer.pawInfo[info[10]]`. Greys out inactive.
 
 Quest filtering:
@@ -154,7 +154,7 @@ In `Tooltip.lua`:
     - Pet type icons derived by speciesID via `tamer:GetPetsAsText(...)`.
 
 - Name resolution:
-  - NPC names: via an invisible tooltip scan using `BattlePetDailyTamerScanTooltip` with a `unit:Creature-...` hyperlink. Reads `BattlePetDailyTamerScanTooltipTextLeft1` for the name.
+  - NPC names: via an invisible tooltip scan using `BattlePetTamersScanTooltip` with a `unit:Creature-...` hyperlink. Reads `BattlePetTamersScanTooltipTextLeft1` for the name.
   - Quest names: tries `C_TaskQuest.GetQuestInfoByQuestID(questID)` for world quests. Otherwise scans tooltip with `quest:<id>` hyperlink.
 
 - Positioning:
@@ -176,8 +176,8 @@ In `Options.lua`:
   - The button is always visible. Hover-based `OnEnter`/auto-hide logic and slide animations were removed.
 
 - Menu building and updates:
-  - `tamer:SetupMenu()` creates `MenuFrame.Buttons` using `BattlePetDailyTamerMenuItemTemplate`.
-  - The header row (id 0) toggles `showTamers` CVAR; subsequent rows map to `tamer.pawInfo[i][2]` keys in `BattlePetDailyTamerSettings`.
+  - `tamer:SetupMenu()` creates `MenuFrame.Buttons` using `BattlePetTamersMenuItemTemplate`.
+  - The header row (id 0) toggles `showTamers` CVAR; subsequent rows map to `tamer.pawInfo[i][2]` keys in `BattlePetTamersSettings`.
   - `tamer:UpdateMenu()` sets check states, enables/disables items based on the main toggle, and updates icon colors/desaturation.
 
 - Input handling:
@@ -187,13 +187,13 @@ In `Options.lua`:
 ## Settings and CVARs
 
 - SavedVariables in `Main.lua`:
-  - On login, initializes `BattlePetDailyTamerSettings` and fills defaults from `tamer.pawInfo` if missing.
+  - On login, initializes `BattlePetTamersSettings` and fills defaults from `tamer.pawInfo` if missing.
 
 - CVAR `showTamers`:
   - Global master toggle for visibility. The menu header toggles this CVAR.
   - `tamer.dataProvider:RefreshAllData()` returns early if disabled.
 
-- Primary settings keys (stored under `BattlePetDailyTamerSettings`):
+- Primary settings keys (stored under `BattlePetTamersSettings`):
   - `TrackSatchels`, `TrackNonSatchels`, `TrackFables`, `TrackWorldQuests`
   - `TrackCompleted`
   - `OnAzerothMap`
@@ -202,7 +202,7 @@ In `Options.lua`:
 ## World/Azeroth Mapping Special Cases
 
 - When viewing Azeroth (`mapID == 947`):
-  - Only active quests are shown, and only when `BattlePetDailyTamerSettings.OnAzerothMap` is true.
+  - Only active quests are shown, and only when `BattlePetTamersSettings.OnAzerothMap` is true.
   - Coordinates are mapped via `tamer:GetAzerothMapPos(y, x, transforms)` using `tamer.azerothTransforms` with the intentional `(y,x)` order.
 
 - Fallbacks for `C_Map` conversion:

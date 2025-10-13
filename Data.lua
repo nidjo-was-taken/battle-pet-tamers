@@ -10,7 +10,7 @@
 		tamer.questIDsByParentMapID, a table indexed by parentMapID with all questIDs in that group
 ]]
 
-local tamer = BattlePetDailyTamer
+local tamer = BattlePetTamers
 
 --[[
 	pawInfo describes the paws and the settings that control them, indexed by the daily type
@@ -20,7 +20,7 @@ local tamer = BattlePetDailyTamer
 
 	[optionIndex] = {
 		[1] = name as it should appear on map options menu/interface options panel
-		[2] = name of savedvar key into BattlePetDailyTamerSettings
+		[2] = name of savedvar key into BattlePetTamersSettings
 		[3] = default value of this setting
 		[4] = icon
 		[5] = red icon color
@@ -29,14 +29,14 @@ local tamer = BattlePetDailyTamer
 	}
 ]]
 tamer.pawInfo = {
-	{"Reward Dailies","TrackSatchels",true,"Interface\\AddOns\\Battle Pet Daily Tamer\\paw",0.5,1.0,0.25},
-	{"Normal Dailies","TrackNonSatchels",true,"Interface\\AddOns\\Battle Pet Daily Tamer\\paw",0.5,0.85,1.0},
-	{"Legendary","TrackFables",true,"Interface\\AddOns\\Battle Pet Daily Tamer\\paw",1.0,0.5,0},
-	{"World Quests","TrackWorldQuests",true,"Interface\\AddOns\\Battle Pet Daily Tamer\\paw",0.5,1.0,0.25},
-	-- {"Pet Dungeons","TrackPetDungeons",true,"Interface\\AddOns\\Battle Pet Daily Tamer\\paw",1,0.5,1}, -- disabled for MoP Classic
-	{"Inactive Dailies","TrackCompleted",false,"Interface\\AddOns\\Battle Pet Daily Tamer\\paw",0.75,0.75,0.75},
+	{"Reward Dailies","TrackSatchels",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.5,1.0,0.25},
+	{"Normal Dailies","TrackNonSatchels",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.5,0.85,1.0},
+	{"Legendary","TrackFables",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",1.0,0.5,0},
+	{"World Quests","TrackWorldQuests",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.5,1.0,0.25},
+	-- {"Pet Dungeons","TrackPetDungeons",true,"Interface\\AddOns\\Battle Pet Tamers\\paw",1,0.5,1}, -- disabled for MoP Classic
+	{"Inactive Dailies","TrackCompleted",false,"Interface\\AddOns\\Battle Pet Tamers\\paw",0.75,0.75,0.75},
 	{"On Azeroth Map","OnAzerothMap",false,"Interface\\Minimap\\Tracking\\Innkeeper",1.0,1.0,1.0},
-	{"Larger Paws","LargerPaws",false,"Interface\\AddOns\\Battle Pet Daily Tamer\\paw",1.0,0.82,0},
+	{"Larger Paws","LargerPaws",false,"Interface\\AddOns\\Battle Pet Tamers\\paw",1.0,0.82,0},
 	--{"On Flight Maps Too","TaxiPaws",false,"Interface\\TaxiFrame\\UI-Taxi-Icon-White",1.0,1.0,1.0},
 	--{"Stable Masters","StableMasters",false,"Interface\\Minimap\\Tracking\\Stablemaster",1.0,1.0,1.0},
 }
@@ -560,7 +560,7 @@ tamer.azerothTransforms = {
 	- Go to any point on a continent and the note the returns of these:
 		UnitPosition("player") -- precise returns; don't negate or swap
 		C_Map.GetPlayerMapPosition(947, "player") -- 947 is Azeroth world map
-		(Can run BattlePetDailyTamer:CreateSample() to do this automatically)
+		(Can run BattlePetTamers:CreateSample() to do this automatically)
 	- Go to another point on the continent (some distance away) and repeat.
 	- Create a table with those values and run this function.
 	- The result will be sent to TinyPad if the addon is enabled, or printed to chat otherwise.
