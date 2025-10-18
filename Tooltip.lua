@@ -284,35 +284,35 @@ end
 -- takes an npcID and returns the name of the npc
 -- if the return is nil, the npcID is invalid or it's not been cached yet
 function tamer:GetNameFromNpcID(npcID)
-	local tooltip = BattlePetTamersScanTooltip
-	tooltip:SetOwner(UIParent, "ANCHOR_NONE")
-	tooltip:SetHyperlink(format("unit:Creature-0-0-0-0-%d-0000000000", npcID))
-	if tooltip:NumLines() > 0 then
-		local name = BattlePetTamersScanTooltipTextLeft1:GetText()
-		tooltip:Hide()
-		return name
+    local tooltip = BattlePetTamersScanTooltip
+    tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+    tooltip:SetHyperlink(format("unit:Creature-0-0-0-0-%d-0000000000", npcID))
+    if tooltip:NumLines() > 0 then
+        local name = BattlePetTamersScanTooltipTextLeft1:GetText()
+        tooltip:Hide()
+        return name
 	end
 end
 
 -- takes a questID and returns the name of the quest
 -- if the return is nil, the questID is invalid or it's not been cached yet
 function tamer:GetNameFromQuestID(questID)
-	-- first see if this is a world quest
-	if type(questID)=="number" then
-		local name = C_TaskQuest.GetQuestInfoByQuestID(questID)
-		if name then
-			return name
-		end
-	end
-	-- wasn't a world quest, try a tooltip scan
-	local tooltip = BattlePetTamersScanTooltip
-	tooltip:SetOwner(UIParent, "ANCHOR_NONE")
-	tooltip:SetHyperlink(format("quest:%d", questID))
-	if tooltip:NumLines() > 0 then
-		local name = BattlePetTamersScanTooltipTextLeft1:GetText()
-		tooltip:Hide()
-		return name
-	end
+    -- first see if this is a world quest
+    if type(questID)=="number" then
+        local name = C_TaskQuest.GetQuestInfoByQuestID(questID)
+        if name then
+            return name
+        end
+    end
+    -- wasn't a world quest, try a tooltip scan
+    local tooltip = BattlePetTamersScanTooltip
+    tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+    tooltip:SetHyperlink(format("quest:%d", questID))
+    if tooltip:NumLines() > 0 then
+        local name = BattlePetTamersScanTooltipTextLeft1:GetText()
+        tooltip:Hide()
+        return name
+    end
 end
 
 -- convert a variable number of speciesIDs to a string of pet type icons

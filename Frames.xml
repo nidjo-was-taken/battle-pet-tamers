@@ -84,9 +84,6 @@
 					<OnClick>
 						self:OnClick(button)
 					</OnClick>
-					<OnHide>
-						self:OnHide()
-					</OnHide>
 					<OnUpdate>
 						self:OnUpdate(elapsed)
 					</OnUpdate>
